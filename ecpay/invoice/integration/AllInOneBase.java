@@ -31,16 +31,16 @@ public class AllInOneBase {
 	protected static String checkMobileBarCodeUrl;
 	protected static String checkLoveCodeUrl;
 	public AllInOneBase(){
-		try {
+//		try {
 			Document doc;
 			
 			/* when using web project, please use the following code with try/catch wrapped*/
-			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-			String configPath = URLDecoder.decode(classLoader.getResource("/invoice_conf.xml").getPath(), "UTF-8");
-			doc = EcpayFunction.xmlParser(configPath);
-			/* when using testing code*/
-//			String configPath = "./src/main/resources/invoice_conf.xml";
+//			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+//			String configPath = URLDecoder.decode(classLoader.getResource("/invoice_conf.xml").getPath(), "UTF-8");
 //			doc = EcpayFunction.xmlParser(configPath);
+			/* when using testing code*/
+			String configPath = "./src/main/resources/invoice_conf.xml";
+			doc = EcpayFunction.xmlParser(configPath);
 			
 			doc.getDocumentElement().normalize();
 			//OperatingMode
@@ -62,9 +62,9 @@ public class AllInOneBase {
 			if(HashKey == null){
 				throw new EcpayException(ErrorMessage.MInfo_NOT_SETTING);
 			}
-		} catch (UnsupportedEncodingException e) {
+//		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			//e.printStackTrace();
+		//}
 	}
 }

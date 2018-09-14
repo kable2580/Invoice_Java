@@ -212,10 +212,10 @@ public class InvoiceVerifyBase {
 		//商品價錢含有管線 => 認為是多樣商品 *ItemCount ， *ItemPrice ， *ItemAmount 逐一用管線分割，計算數量後與第一個比對
 		if(obj.getVat().equals("0")){
 			if(!obj.getItemPrice().contains("|")){
-				if((int)(Float.parseFloat(obj.getItemAmount())+0.5f) != (int)Math.round(Integer.parseInt(obj.getItemPrice())*Integer.parseInt(obj.getItemCount())*taxFee))
+				if((Float.parseFloat(obj.getItemAmount())+0.5f) != Float.parseFloat(obj.getItemPrice())*Float.parseFloat(obj.getItemCount())*taxFee)
 					throw new EcpayException("ItemPrice * ItemCount + tax != ItemAmount");
 				//驗證單筆商品合計是否等於發票金額
-				if(Integer.parseInt(obj.getSalesAmount()) != (int)(Float.parseFloat(obj.getItemAmount())+0.5f))
+				if(Integer.parseInt(obj.getSalesAmount()) != Math.round((Float.parseFloat(obj.getItemAmount())+0.5f)))
 					throw new EcpayException("ItemAmount is not equal to SalesAmount");
 			} else if(obj.getItemPrice().contains("|")){
 				int itemCount = obj.getItemPrice().split("\\|").length;
@@ -278,10 +278,10 @@ public class InvoiceVerifyBase {
 		// 未稅扣稅多樣商品時先算稅金加總四捨五入後帶入ItemAmount，且ItemAmount全部金額加總後等於SalesAmount
 		if(obj.getVat().equals("1")){
 			if(!obj.getItemPrice().contains("|")){
-				if(Integer.parseInt(obj.getItemAmount()) != (int)Math.round(Integer.parseInt(obj.getItemPrice())*Integer.parseInt(obj.getItemCount())/taxFee))
+				if(Float.parseFloat(obj.getItemAmount()) != Float.parseFloat(obj.getItemPrice())*Integer.parseInt(obj.getItemCount())/taxFee)
 					throw new EcpayException("ItemPrice * ItemCount - tax != ItemAmount");
 				// 驗證單筆商品合計是否等於發票金額
-				if(Integer.parseInt(obj.getSalesAmount()) != Integer.parseInt(obj.getItemAmount()))
+				if(Integer.parseInt(obj.getSalesAmount()) != Math.round(Float.parseFloat(obj.getItemAmount())))
 					throw new EcpayException("ItemAmount is not equal to SalesAmount");
 			} else if(obj.getItemPrice().contains("|")){
 				int itemCount = obj.getItemPrice().split("\\|").length;
@@ -538,10 +538,10 @@ public class InvoiceVerifyBase {
 		}
 		// 商品價錢含有管線 => 認為是多樣商品 *ItemCount ， *ItemPrice ， *ItemAmount 逐一用管線分割，計算數量後與第一個比對
 		if(!obj.getItemPrice().contains("|")){
-			if((int)(Float.parseFloat(obj.getItemAmount())+0.5f) != (int)Math.round(Integer.parseInt(obj.getItemPrice())*Integer.parseInt(obj.getItemCount())/taxFee))
+			if((Float.parseFloat(obj.getItemAmount())+0.5f) != Math.round(Float.parseFloat(obj.getItemPrice())*Integer.parseInt(obj.getItemCount())/taxFee))
 				throw new EcpayException("ItemPrice * ItemCount - tax != ItemAmount");
 			// 驗證單筆商品合計是否等於發票金額
-			if(Integer.parseInt(obj.getSalesAmount()) != ((int)(Float.parseFloat(obj.getItemAmount())+0.5f)))
+			if(Integer.parseInt(obj.getSalesAmount()) != (Math.round((Float.parseFloat(obj.getItemAmount())+0.5f))))
 				throw new EcpayException("ItemAmount is not equal to SalesAmount.");
 		} else if(obj.getItemPrice().contains("|")){
 			int itemCount = obj.getItemPrice().split("\\|").length;
@@ -680,10 +680,10 @@ public class InvoiceVerifyBase {
 		// 商品價錢含有管線 => 認為是多樣商品 *ItemCount ， *ItemPrice ， *ItemAmount 逐一用管線分割，計算數量後與第一個比對
 		// 驗證單筆ItemAmount = (ItemPrice * ItemCount)
 		if(!obj.getItemPrice().contains("|")){
-			if(Integer.parseInt(obj.getItemAmount()) != Integer.parseInt(obj.getItemPrice()) * Integer.parseInt(obj.getItemCount()))
+			if(Float.parseFloat(obj.getItemAmount()) != Float.parseFloat(obj.getItemPrice()) * Integer.parseInt(obj.getItemCount()))
 				throw new EcpayException("ItemPrice * ItemCount != ItemAmount.");
 			// 驗證單筆商品合計是否等於發票金額
-			if(Integer.parseInt(obj.getAllowanceAmount()) != Integer.parseInt(obj.getItemAmount()))
+			if(Integer.parseInt(obj.getAllowanceAmount()) != Math.round(Float.parseFloat(obj.getItemAmount())))
 				throw new EcpayException("ItemAmount is not equal to AllowanceAmount.");
 		} else if(obj.getItemPrice().contains("|")){
 			int itemPrice = obj.getItemPrice().split("\\|").length;
@@ -710,13 +710,13 @@ public class InvoiceVerifyBase {
 			String[] price = obj.getItemPrice().split("\\|");
 			String[] count = obj.getItemCount().split("\\|");
 			for(int i = 0; i <= itemPrice-1; i++){
-				if(Integer.parseInt(amount[i]) != Integer.parseInt(price[i])*Integer.parseInt(count[i]))
+				if(Float.parseFloat(amount[i]) != Float.parseFloat(price[i])*Integer.parseInt(count[i]))
 					throw new EcpayException("ItemPrice * ItemCount != ItemAmount");
 				// Verify ItemAmount subtotal equal SalesAmount
-				int itemPriceSum = 0;
+				float itemPriceSum = 0;
 				for(int j = 0; j <= itemPrice-1; j++)
-					itemPriceSum += Integer.parseInt(amount[j]);
-				if(Integer.parseInt(obj.getAllowanceAmount()) != itemPriceSum)
+					itemPriceSum += Float.parseFloat(amount[j]);
+				if(Integer.parseInt(obj.getAllowanceAmount()) != Math.round(itemPriceSum))
 					throw new EcpayException("ItemAmount subtotal is not equal to AllowanceAmount.");
 			}
 		}

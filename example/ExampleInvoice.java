@@ -21,19 +21,19 @@ public class ExampleInvoice {
 	public static AllInOne all;
 	public static void main(String[] args){
 		initial();
-		System.out.println("Issue: "+postIssue());
-		System.out.println("DelayIssue: "+postDelayIssue());
-		System.out.println("TriggerIssue: "+postTriggerIssue());
+//		System.out.println("Issue: "+postIssue());
+//		System.out.println("DelayIssue: "+postDelayIssue());
+//		System.out.println("TriggerIssue: "+postTriggerIssue());
 		System.out.println("Allowance: "+postAllowance());
-		System.out.println("IssueInvalid: "+postIssueInvalid());
-		System.out.println("AllowanceInvalid: "+postAllowanceInvalid());
-		System.out.println("QueryIssue: "+postQueryIssue());
-		System.out.println("QueryAllowance: "+postQueryAllowance());
-		System.out.println("QueryIssueInvalid: "+postQueryIssueInvalid());
-		System.out.println("QueryAllowanceInvalid: "+postQueryAllowanceInvalid());
-		System.out.println("InvoiceNotify: "+postInvoiceNotify());
-		System.out.println("CheckMobileBarCode: "+postCheckMobileBarCode());
-		System.out.println("CheckLoveCode: "+postCheckLoveCode());
+//		System.out.println("IssueInvalid: "+postIssueInvalid());
+//		System.out.println("AllowanceInvalid: "+postAllowanceInvalid());
+//		System.out.println("QueryIssue: "+postQueryIssue());
+//		System.out.println("QueryAllowance: "+postQueryAllowance());
+//		System.out.println("QueryIssueInvalid: "+postQueryIssueInvalid());
+//		System.out.println("QueryAllowanceInvalid: "+postQueryAllowanceInvalid());
+//		System.out.println("InvoiceNotify: "+postInvoiceNotify());
+//		System.out.println("CheckMobileBarCode: "+postCheckMobileBarCode());
+//		System.out.println("CheckLoveCode: "+postCheckLoveCode());
 	}
 	
 	private static void initial(){
@@ -54,8 +54,8 @@ public class ExampleInvoice {
 		obj.setItemName("運動用品");
 		obj.setItemCount("1");
 		obj.setItemWord("箱");
-		obj.setItemPrice("100");
-		obj.setItemAmount("100");
+		obj.setItemPrice("100.3");
+		obj.setItemAmount("100.3");
 		return all.issue(obj);
 	}
 	
@@ -88,17 +88,17 @@ public class ExampleInvoice {
 	
 	public static String postAllowance(){
 		AllowanceObj obj = new AllowanceObj();
-		obj.setInvoiceNo("XN12345678");
+		obj.setInvoiceNo("FX60011787");
 		obj.setAllowanceNotify("A");
 		obj.setCustomerName("Mark");
 		obj.setNotifyMail("abc@opay.com.tw");
 		obj.setNotifyPhone("0912345678");
-		obj.setAllowanceAmount("90");
+		obj.setAllowanceAmount("100");
 		obj.setItemName("運動用品");
 		obj.setItemCount("1");
 		obj.setItemWord("箱");
-		obj.setItemPrice("90");
-		obj.setItemAmount("90");
+		obj.setItemPrice("100.3");
+		obj.setItemAmount("100.3");
 		return all.allowance(obj);
 	}
 	
