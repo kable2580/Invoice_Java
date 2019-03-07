@@ -21,10 +21,10 @@ public class ExampleInvoice {
 	public static AllInOne all;
 	public static void main(String[] args){
 		initial();
-//		System.out.println("Issue: "+postIssue());
+		System.out.println("Issue: "+postIssue());
 //		System.out.println("DelayIssue: "+postDelayIssue());
 //		System.out.println("TriggerIssue: "+postTriggerIssue());
-		System.out.println("Allowance: "+postAllowance());
+//		System.out.println("Allowance: "+postAllowance());
 //		System.out.println("IssueInvalid: "+postIssueInvalid());
 //		System.out.println("AllowanceInvalid: "+postAllowanceInvalid());
 //		System.out.println("QueryIssue: "+postQueryIssue());
@@ -47,7 +47,9 @@ public class ExampleInvoice {
 		obj.setCustomerName("Mark");
 		obj.setCustomerAddr("Taiwan");
 		obj.setCustomerPhone("0912345678");
-		obj.setPrint("1");
+		obj.setCarruerType("3");
+		obj.setCarruerNum("/.......");
+		obj.setPrint("0");
 		obj.setDonation("2");
 		obj.setTaxType("1");
 		obj.setSalesAmount("100");
@@ -61,7 +63,8 @@ public class ExampleInvoice {
 	
 	public static String postDelayIssue(){
 		DelayIssueObj obj = new DelayIssueObj();
-		obj.setRelateNumber("sdflfjwklekj");
+		UUID uid = UUID.randomUUID();
+		obj.setRelateNumber("521sd5595flfjwklekj");
 		obj.setCustomerName("Mark");
 		obj.setCustomerAddr("Taiwan");
 		obj.setCustomerPhone("0912345678");
@@ -72,17 +75,17 @@ public class ExampleInvoice {
 		obj.setItemName("運動用品");
 		obj.setItemCount("1");
 		obj.setItemWord("箱");
-		obj.setItemPrice("100");
-		obj.setItemAmount("100");
-		obj.setDelayFlag("1");
-		obj.setDelayDay("7");
-		obj.setTsr("sdfowijl2khj");
+		obj.setItemPrice("100.3");
+		obj.setItemAmount("100.3");
+		obj.setDelayFlag("2");
+		obj.setDelayDay("0");
+		obj.setTsr("521sd5595fowijl2khj");
 		return all.delayIssue(obj);
 	}
 	
 	public static String postTriggerIssue(){
 		TriggerIssueObj obj = new TriggerIssueObj();
-		obj.setTsr("sdflfkjwlekfholih");
+		obj.setTsr("521sd5595fowijl2khj");
 		return all.triggerIssue(obj);
 	}
 	
@@ -157,7 +160,7 @@ public class ExampleInvoice {
 	
 	public static String postCheckMobileBarCode(){
 		CheckMobileBarCodeObj obj = new CheckMobileBarCodeObj();
-		obj.setBarCode("/6G+X3LQ");
+		obj.setBarCode("/6G.X3LQ");
 		return all.checkMobileBarCode(obj);
 	}
 	
