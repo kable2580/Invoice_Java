@@ -169,12 +169,12 @@ public class InvoiceVerifyBase {
 				if(!obj.getClearanceMark().equals("1") && !obj.getClearanceMark().equals("2"))
 					throw new EcpayException("ClearanceMark must be 1 or 2 when ItemTaxType contains 2.");
 		}
-		//e 統一編號[CustomerIdentifier]有值時 => CarruerType != 1 or 2 or 3, *Donation = 2, print = 1
+		//e 統一編號[CustomerIdentifier]有值時 => CarruerType != 1 or 2 or 3, *Donation = 0, print = 1
 		if(!obj.getCustomerIdentifier().isEmpty()){
 			if(obj.getCarruerType().equals("1") || obj.getCarruerType().equals("2") || obj.getCarruerType().equals("3"))
 				throw new EcpayException("CarruerType cannot be 1 or 2 or 3 when CustomerIdentifier is given");
-			if(!obj.getDonation().equals("2") && !obj.getPrint().equals("1"))
-				throw new EcpayException("Print must be 1 and Donation must be 2 when CustomerIdentifier is given");
+			if(!obj.getDonation().equals("0") && !obj.getPrint().equals("1"))
+				throw new EcpayException("Print must be 1 and Donation must be 0 when CustomerIdentifier is given");
 		}
 		//f [CarruerType]為'' or 1 時 => CarruerNum = '', [CarruerType]為 2， CarruerNum = 固定長度為 16 且格式為 2 碼大小寫字母加上 14 碼數字。 [CarruerType]為 3 ，帶固定長度為 8 且格式為 1 碼斜線「/」加上由 7 碼數字及大小寫字母組成
 		if(obj.getCarruerType().isEmpty() || obj.getCarruerType().equals("1")){
@@ -190,7 +190,7 @@ public class InvoiceVerifyBase {
 		} else if(obj.getCarruerType().equals("3")){
 			if(!obj.getCustomerID().isEmpty())
 				throw new EcpayException("CustomerID must be empty when CarruerType is 3.");
-			Pattern r = Pattern.compile("^\\/[A-Za-z0-9\\s+-]{7}$");
+			Pattern r = Pattern.compile("^\\/[A-Za-z0-9\\s+-.]{7}$");
 			Matcher CarrNum = r.matcher(obj.getCarruerNum());
 			if(!CarrNum.find())
 				throw new EcpayException("CarruerNum must start with / and followed by 7 characters containing alphabets and digits when CarruerType is 3.");
@@ -203,9 +203,9 @@ public class InvoiceVerifyBase {
 				throw new EcpayException("LoveCode cannot be empty when Donation is 1.");
 			if(!obj.getPrint().equals("0"))
 				throw new EcpayException("Print must be 0 when Donation is 1.");
-		} else if(obj.getDonation().equals("2"))
+		} else if(obj.getDonation().equals("0"))
 			if(!obj.getLoveCode().isEmpty())
-				throw new EcpayException("LoveCode must be empty when Donation is 2.");
+				throw new EcpayException("LoveCode must be empty when Donation is 0.");
 		//[vat]為0時 => ItemPrice = 未稅, ItemAmount = (ItemPrice * ItemCount) + (ItemPrice * ItemCount * tax(5%))
 		//未稅加稅單一商品時直接四捨五入帶入ItemAmount，且ItemAmount等於SalesAmount
 		//未稅加稅多樣商品時先算稅金加總帶入ItemAmount，且ItemAmount全部金額加總後帶入SalesAmount後四捨五入
@@ -489,12 +489,12 @@ public class InvoiceVerifyBase {
 			if(obj.getItemTaxType().isEmpty())
 				throw new EcpayException("ItemTaxType cannot be empty when TaxType is 9.");
 		}
-		// e 統一編號[CustomerIdentifier]有值時 => CarruerType != 1 or 2, *Donation = 2, print = 1
+		// e 統一編號[CustomerIdentifier]有值時 => CarruerType != 1 or 2, *Donation = 0, print = 1
 		if(!obj.getCustomerIdentifier().isEmpty()){
 			if(obj.getCarruerType().equals("1") || obj.getCarruerType().equals("2"))
 				throw new EcpayException("CarruerType cannot be 1 or 2 when CustomerIdentifier is given.");
-			if(!obj.getDonation().equals("2") || !obj.getPrint().equals("1"))
-				throw new EcpayException("Print must be 1 and Donation must be 2 when CustomerIdentifier is given.");
+			if(!obj.getDonation().equals("0") || !obj.getPrint().equals("1"))
+				throw new EcpayException("Print must be 1 and Donation must be 0 when CustomerIdentifier is given.");
 		}
 		// DelayFlag Rules When [DelayFlag] is '1' the [DelayDay] range be between 1 and 15
 		// When [DelayFlag] is '2' the [DelayDay] range be between 0 and 15
@@ -519,7 +519,7 @@ public class InvoiceVerifyBase {
 		} else if(obj.getCarruerType().equals("3")){
 			if(!obj.getCustomerID().isEmpty())
 				throw new EcpayException("CustomerID must be empty when CarruerType is 2.");
-			Pattern r = Pattern.compile("^\\/[A-Za-z0-9\\s+-]{7}$");
+			Pattern r = Pattern.compile("^\\/[A-Za-z0-9\\s+-.]{7}$");
 			Matcher m = r.matcher(obj.getCarruerNum());
 			if(!m.find())
 				throw new EcpayException("CarruerNum must start with / followed by 7 alphabet and number characters when CarruerType is 3.");
@@ -532,16 +532,16 @@ public class InvoiceVerifyBase {
 				throw new EcpayException("LoveCode cannot be empty when Donation is 1.");
 			if(!obj.getPrint().equals("0"))
 				throw new EcpayException("Print must be 0 when Donation is 1.");
-		} else if(obj.getDonation().equals("2")){
+		} else if(obj.getDonation().equals("0")){
 			if(!obj.getLoveCode().isEmpty())
-				throw new EcpayException("LoveCode must be empty when Donation is 2.");
+				throw new EcpayException("LoveCode must be empty when Donation is 0.");
 		}
 		// 商品價錢含有管線 => 認為是多樣商品 *ItemCount ， *ItemPrice ， *ItemAmount 逐一用管線分割，計算數量後與第一個比對
 		if(!obj.getItemPrice().contains("|")){
-			if((Float.parseFloat(obj.getItemAmount())+0.5f) != Math.round(Float.parseFloat(obj.getItemPrice())*Integer.parseInt(obj.getItemCount())/taxFee))
+			if((Float.parseFloat(obj.getItemAmount())) != Float.parseFloat(obj.getItemPrice())*Integer.parseInt(obj.getItemCount())/taxFee)
 				throw new EcpayException("ItemPrice * ItemCount - tax != ItemAmount");
 			// 驗證單筆商品合計是否等於發票金額
-			if(Integer.parseInt(obj.getSalesAmount()) != (Math.round((Float.parseFloat(obj.getItemAmount())+0.5f))))
+			if(Integer.parseInt(obj.getSalesAmount()) != (Math.round((Float.parseFloat(obj.getItemAmount())))))
 				throw new EcpayException("ItemAmount is not equal to SalesAmount.");
 		} else if(obj.getItemPrice().contains("|")){
 			int itemCount = obj.getItemPrice().split("\\|").length;

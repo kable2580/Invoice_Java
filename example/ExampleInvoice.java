@@ -46,12 +46,14 @@ public class ExampleInvoice {
 		obj.setRelateNumber(uid.toString().replaceAll("-", "").substring(0, 30));
 		obj.setCustomerName("Mark");
 		obj.setCustomerAddr("Taiwan");
+		obj.setCustomerIdentifier("");
 		obj.setCustomerPhone("0912345678");
-		obj.setCarruerType("3");
-		obj.setCarruerNum("/.......");
+		obj.setCarruerType("");
+		obj.setCarruerNum("");
 		obj.setPrint("0");
-		obj.setDonation("2");
+		obj.setDonation("1");
 		obj.setTaxType("1");
+		obj.setLoveCode("1234");
 		obj.setSalesAmount("100");
 		obj.setItemName("運動用品");
 		obj.setItemCount("1");
