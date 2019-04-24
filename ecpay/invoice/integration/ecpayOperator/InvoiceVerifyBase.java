@@ -79,21 +79,10 @@ public class InvoiceVerifyBase {
 		String[] vatParamsList = new String[]{};
 		double taxFee = 1.0;
 		//1. 比對特殊欄位相依需求
-		//a [CarruerType]為 1 => CustomerID 不能為空
-		//	[CustomerID]不為空 => CarruerType 不能為空
-		if(obj.getCarruerType().equals("1")){
-			if(obj.getCustomerID().isEmpty())
-				throw new EcpayException("CustomerID cannot be empty when CarruerType is 1.");
-		} else if(obj.getCarruerType().isEmpty()){
-			if(!obj.getCustomerID().isEmpty())
-				throw new EcpayException("CarruerType cannot be empty when CustomerID is not empty.");
-		}
 		//b 列印註記[Print]為 1 => CustomerName, CustomerAddr
 		if(obj.getPrint().equals("1")){
 			if(obj.getCustomerName().isEmpty() || obj.getCustomerAddr().isEmpty())
 				throw new EcpayException("CustomerName and CustomerAddr cannot be empty when Print is 1.");
-			if(!obj.getCustomerID().isEmpty())
-				throw new EcpayException("Print cannot be 1 when CustomerID is not empty.");
 			if(!obj.getCarruerType().isEmpty())
 				throw new EcpayException("Print cannot be 1 when CarruerType is not empty.");
 			if(!obj.getCarruerNum().isEmpty())
@@ -434,21 +423,10 @@ public class InvoiceVerifyBase {
 		String[] vatParamsList = new String[]{};
 		double taxFee = 1.0;
 		// 1. 比對特殊欄位值相依需求
-		// a [CarruerType]為 1 => CustomerID 不能為空
-		if(obj.getCarruerType().equals("1")){
-			if(obj.getCustomerID().isEmpty())
-				throw new EcpayException("CustomerID cannot be empty when CarruerType is 1.");
-		// CustomerID不為空 => CarruerType 不能為空
-		} else if(obj.getCarruerType().isEmpty()){
-			if(!obj.getCustomerID().isEmpty())
-				throw new EcpayException("CarruerType cannot be empty when CustomerID is not empty.");
-		}
 		// b 列印註記[Print]為 1 => CustomerName, CustomerAddr
 		if(obj.getPrint().equals("1")){
 			if(obj.getCustomerName().isEmpty() || obj.getCustomerAddr().isEmpty())
 				throw new EcpayException("CustomeName and CustomeAddr cannot be empty when Print is 1.");
-			if(!obj.getCustomerID().isEmpty())
-				throw new EcpayException("Print cannot be 1 when CustomerID is not empty.");
 			if(!obj.getCarruerType().isEmpty())
 				throw new EcpayException("Print cannot be 1 when CarruerType is not empty.");
 			if(!obj.getCarruerNum().isEmpty())
@@ -493,7 +471,7 @@ public class InvoiceVerifyBase {
 		if(!obj.getCustomerIdentifier().isEmpty()){
 			if(obj.getCarruerType().equals("1") || obj.getCarruerType().equals("2"))
 				throw new EcpayException("CarruerType cannot be 1 or 2 when CustomerIdentifier is given.");
-			if(!obj.getDonation().equals("0") || !obj.getPrint().equals("1"))
+			if(!obj.getDonation().equals("2") || !obj.getPrint().equals("1"))
 				throw new EcpayException("Print must be 1 and Donation must be 0 when CustomerIdentifier is given.");
 		}
 		// DelayFlag Rules When [DelayFlag] is '1' the [DelayDay] range be between 1 and 15
