@@ -471,7 +471,7 @@ public class InvoiceVerifyBase {
 		if(!obj.getCustomerIdentifier().isEmpty()){
 			if(obj.getCarruerType().equals("1") || obj.getCarruerType().equals("2"))
 				throw new EcpayException("CarruerType cannot be 1 or 2 when CustomerIdentifier is given.");
-			if(!obj.getDonation().equals("2") || !obj.getPrint().equals("1"))
+			if(!obj.getDonation().equals("0") || !obj.getPrint().equals("1"))
 				throw new EcpayException("Print must be 1 and Donation must be 0 when CustomerIdentifier is given.");
 		}
 		// DelayFlag Rules When [DelayFlag] is '1' the [DelayDay] range be between 1 and 15
