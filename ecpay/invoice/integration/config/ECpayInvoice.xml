@@ -219,10 +219,10 @@
         <pattern>^.{1,30}$</pattern>
       </param>
       <param type="String" require="1" name="PayType">
-        <pattern>^[3]$</pattern>
+        <pattern>^[2]$</pattern>
       </param>
       <param type="String" require="1" name="PayAct">
-        <pattern>^ALLPAY$</pattern>
+        <pattern>^ECPAY$</pattern>
       </param>
       <param type="String" require="1" name="NotifyURL" urlencode="1">
         <pattern>^.{0,200}$</pattern>
@@ -251,7 +251,7 @@
         <pattern>^.{1,30}$</pattern>
       </param>
       <param type="String" require="1" name="PayType">
-        <pattern>^[3]$</pattern>
+        <pattern>^[2]$</pattern>
       </param>
     </Parameters>
   </InvoiceTriggerIssue>

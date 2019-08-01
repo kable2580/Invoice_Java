@@ -21,8 +21,8 @@ public class ExampleInvoice {
 	public static AllInOne all;
 	public static void main(String[] args){
 		initial();
-		System.out.println("Issue: "+postIssue());
-//		System.out.println("DelayIssue: "+postDelayIssue());
+//		System.out.println("Issue: "+postIssue());
+		System.out.println("DelayIssue: "+postDelayIssue());
 //		System.out.println("TriggerIssue: "+postTriggerIssue());
 //		System.out.println("Allowance: "+postAllowance());
 //		System.out.println("IssueInvalid: "+postIssueInvalid());
@@ -66,12 +66,13 @@ public class ExampleInvoice {
 	public static String postDelayIssue(){
 		DelayIssueObj obj = new DelayIssueObj();
 		UUID uid = UUID.randomUUID();
-		obj.setRelateNumber("521sd5595flfjwklekj");
+		String num=uid.toString().replaceAll("-", "").substring(0, 30);
+		obj.setRelateNumber(num);
 		obj.setCustomerName("Mark");
 		obj.setCustomerAddr("Taiwan");
 		obj.setCustomerPhone("0912345678");
 		obj.setPrint("1");
-		obj.setDonation("2");
+		obj.setDonation("0");
 		obj.setTaxType("1");
 		obj.setSalesAmount("100");
 		obj.setItemName("運動用品");
@@ -81,7 +82,7 @@ public class ExampleInvoice {
 		obj.setItemAmount("100.3");
 		obj.setDelayFlag("2");
 		obj.setDelayDay("0");
-		obj.setTsr("521sd5595fowijl2khj");
+		obj.setTsr(num);
 		return all.delayIssue(obj);
 	}
 	
