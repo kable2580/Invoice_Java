@@ -5,6 +5,7 @@ import java.util.UUID;
 import ecpay.invoice.integration.AllInOne;
 import ecpay.invoice.integration.domain.AllowanceInvalidObj;
 import ecpay.invoice.integration.domain.AllowanceObj;
+import ecpay.invoice.integration.domain.AllowanceByCollegiateObj;
 import ecpay.invoice.integration.domain.CheckLoveCodeObj;
 import ecpay.invoice.integration.domain.CheckMobileBarCodeObj;
 import ecpay.invoice.integration.domain.DelayIssueObj;
@@ -22,9 +23,10 @@ public class ExampleInvoice {
 	public static void main(String[] args){
 		initial();
 //		System.out.println("Issue: "+postIssue());
-		System.out.println("DelayIssue: "+postDelayIssue());
+//		System.out.println("DelayIssue: "+postDelayIssue());
 //		System.out.println("TriggerIssue: "+postTriggerIssue());
 //		System.out.println("Allowance: "+postAllowance());
+		System.out.println("AllowanceByCollegiate: "+postAllowanceByCollegiate());
 //		System.out.println("IssueInvalid: "+postIssueInvalid());
 //		System.out.println("AllowanceInvalid: "+postAllowanceInvalid());
 //		System.out.println("QueryIssue: "+postQueryIssue());
@@ -107,7 +109,23 @@ public class ExampleInvoice {
 		obj.setItemAmount("100.3");
 		return all.allowance(obj);
 	}
-	
+	public static String postAllowanceByCollegiate(){
+		AllowanceByCollegiateObj obj = new AllowanceByCollegiateObj();
+		obj.setInvoiceNo("TE10032604");
+		obj.setAllowanceNotify("A");
+		obj.setCustomerName("Mark");
+		obj.setNotifyMail("test@test.com");
+		obj.setNotifyPhone("0912345678");
+		obj.setAllowanceAmount("100");
+		obj.setItemName("運動用品");
+		obj.setItemCount("1");
+		obj.setItemWord("箱");
+		obj.setItemPrice("100");
+		obj.setItemAmount("100");
+		obj.setItemTaxType("3");
+		obj.setReturnURL("http://test.test.com");
+		return all.allowancebycollegiate(obj);
+	}
 	public static String postIssueInvalid(){
 		IssueInvalidObj obj = new IssueInvalidObj();
 		obj.setInvoiceNumber("XN12345678");
