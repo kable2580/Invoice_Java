@@ -22,11 +22,11 @@ public class ExampleInvoice {
 	public static AllInOne all;
 	public static void main(String[] args){
 		initial();
-//		System.out.println("Issue: "+postIssue());
+		System.out.println("Issue: "+postIssue());
 //		System.out.println("DelayIssue: "+postDelayIssue());
 //		System.out.println("TriggerIssue: "+postTriggerIssue());
 //		System.out.println("Allowance: "+postAllowance());
-		System.out.println("AllowanceByCollegiate: "+postAllowanceByCollegiate());
+//		System.out.println("AllowanceByCollegiate: "+postAllowanceByCollegiate());
 //		System.out.println("IssueInvalid: "+postIssueInvalid());
 //		System.out.println("AllowanceInvalid: "+postAllowanceInvalid());
 //		System.out.println("QueryIssue: "+postQueryIssue());

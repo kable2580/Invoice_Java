@@ -101,7 +101,6 @@
       </param>
       <param type="Opt"  require="1" name="InvType">
         <option>07</option>
-        <option>08</option>
       </param>
       <param type="Opt" require="1" name="vat">
         <option>0</option>
@@ -206,7 +205,6 @@
       </param>
       <param type="Opt"  require="1" name="InvType">
         <option>07</option>
-        <option>08</option>
       </param>
       <param type="Opt" require="1" name="DelayFlag">
         <option>1</option>
