@@ -18,6 +18,14 @@ public class EcpayInvoiceIssueObj {
   private String invoiceRemark = "";
   private String itemName = "";
   private String itemCount = "";
+  private String itemWord = "";
+  private String itemPrice = "";
+  private String itemTaxType = "";
+  private String itemAmount = "";
+  private String itemRemark = "";
+  private String invType = "";
+  private String vat = "";
+
 
   public String getCustomerIdentifier() {
     return customerIdentifier;
@@ -210,12 +218,4 @@ public class EcpayInvoiceIssueObj {
   public void setVat(String vat) {
     this.vat = vat;
   }
-
-  private String itemWord = "";
-  private String itemPrice = "";
-  private String itemTaxType = "";
-  private String itemAmount = "";
-  private String itemRemark = "";
-  private String invType = "";
-  private String vat = "";
 }
