@@ -1,10 +1,11 @@
 package com.conway.ecpay;
 
-import lombok.extern.slf4j.Slf4j;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -19,8 +20,9 @@ import java.util.TreeMap;
 import java.util.UUID;
 
 /** Created by Conway on 2019-12-24 */
-@Slf4j
 public class EcpayTool {
+
+  private static final Logger logger = LoggerFactory.getLogger(EcpayTool.class);
 
   private static final String HASH_KEY = "ejCk326UnaZWKisg";
   private static final String HASH_IV = "q9jcZX8Ib9LM8wYk";
@@ -117,10 +119,10 @@ public class EcpayTool {
 
       Response response = okHttpClient.newCall(request).execute();
 
-      log.info(response.body().string());
+      logger.info(response.body().string());
 
     } catch (IOException | NoSuchAlgorithmException e) {
-      log.error(e.toString());
+      logger.error(e.toString());
     }
   }
 
